@@ -8,6 +8,7 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+
 class usercontrol extends Controller
 {
     
@@ -17,10 +18,14 @@ class usercontrol extends Controller
         return view('register');
 
     }
-
+    
     public function login(Request $request){
         $email = $request->input('email');
         $pass = $request->input('password');
+       $this->validate($request,[
+            'email'=>'required',
+            'password'=>'required',
+        ]);
         $row = DB::table("users")->where('email',$email)->where('password',$pass)->first();
         if($row)
         {
@@ -33,6 +38,11 @@ class usercontrol extends Controller
     
     public function welcome(Request $request)
     {
+        $this->validate($request , [
+            'name'=>'required',
+            'email'=>'required',
+            'password'=>'required|confirmed',
+        ]);
         $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');

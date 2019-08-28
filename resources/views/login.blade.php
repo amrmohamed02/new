@@ -34,18 +34,28 @@
 			<div class="wrap-login100 p-t-85 p-b-20">
 			   <form action = "/login" class="login100-form validate-form"method="POST">
 				{{ csrf_field() }}
+				@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 					<span class="login100-form-title p-b-70">
 						Welcome
 					</span>
 					
 
-					<div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter email">
-						<input class="input100" type="text" name="email">
+					<div class="wrap-input100  m-t-85 m-b-35" >
+						<input class="input100" type="text" name="email"value="{{Request::old('email')}}">
 						<span class="focus-input100" data-placeholder="Email"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
-						<input class="input100" type="password" name="password">
+					<div class="wrap-input100  m-b-50" >
+						<input class="input100" type="password" name="password"value="{{Request::old('password')}}">
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
 
